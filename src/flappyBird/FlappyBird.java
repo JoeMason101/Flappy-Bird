@@ -69,6 +69,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
   int space = 300;
   int width = 100;
   int height = 50 + rand.nextInt(300);
+  
 
   if (start) {
    columns.add(new Rectangle(WIDTH + width + columns.size() * 300, HEIGHT - height - 120, width, height));
@@ -77,6 +78,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
    columns.add(new Rectangle(columns.get(columns.size() - 1).x + 600, HEIGHT - height - 120, width, height));
    columns.add(new Rectangle(columns.get(columns.size() - 1).x, 0, width, HEIGHT - height - space));
   }
+  
  }
 
  public void paintColumn(Graphics g, Rectangle column) {
@@ -192,9 +194,8 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
 
     if (column.intersects(bird)) {
      gameOver = true;
-
-
-
+     bird.y = HEIGHT - 120 - bird.height;
+     
      if (bird.x <= column.x) {
       bird.x = column.x - bird.width;
      } else {
@@ -211,12 +212,21 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener {
     gameOver = true;
 
    }
-
+   
    if (bird.y + yMotion >= HEIGHT - 120) {
     bird.y = HEIGHT - 120 - bird.height;
-
+    gameOver = true;
    }
+   
+   if(bird.y < columns.size()) {
+	  gameOver = true;
+  	 bird.y = 0;
+  	 
+   }
+   
+ 
   }
+  
 
 
 
